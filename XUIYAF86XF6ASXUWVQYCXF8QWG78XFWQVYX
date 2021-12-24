@@ -1,0 +1,97 @@
+local function ENCRYPTFUNCTION(text, key)
+return text:gsub("%a", function(t)
+local base = (t:lower() == t and string.byte('a') or string.byte('A'))
+
+local r = t:byte() - base
+r = r + key
+r = r%26 -- works correctly even if r is negative
+r = r + base
+return string.char(r)
+end)
+end
+
+local function DECRYPTFUNCTION(text, key)
+return ENCRYPTFUNCTION(text, -key)
+end
+
+local SSS = Instance.new("ScreenGui")
+local Main = Instance.new("Frame")
+local UICorner = Instance.new("UICorner")
+local UIGradient = Instance.new("UIGradient")
+local ExecutionBox = Instance.new("TextBox")
+local UICorner_2 = Instance.new("UICorner")
+local YSH = Instance.new("TextLabel")
+local SSS_2 = Instance.new("TextLabel")
+
+--Properties:
+
+SSS.Name = "SSS"
+SSS.Parent = game.CoreGui
+SSS.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+Main.Name = "Main"
+Main.Parent = SSS
+Main.BackgroundColor3 = Color3.fromRGB(115, 0, 173)
+Main.Position = UDim2.new(0.393442631, 0, 0.185542166, 0)
+Main.Size = UDim2.new(0, 300, 0, 237)
+
+UICorner.Parent = Main
+
+UIGradient.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(255, 0, 4)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(18, 18, 18))}
+UIGradient.Parent = Main
+
+ExecutionBox.Name = "ExecutionBox"
+ExecutionBox.Parent = Main
+ExecutionBox.BackgroundColor3 = Color3.fromRGB(117, 6, 8)
+ExecutionBox.Position = UDim2.new(0.193333328, 0, 0.320675105, 0)
+ExecutionBox.Size = UDim2.new(0, 200, 0, 83)
+ExecutionBox.Font = Enum.Font.SourceSansBold
+ExecutionBox.Text = ""
+ExecutionBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+ExecutionBox.TextSize = 15.000
+ExecutionBox.TextWrapped = true
+ExecutionBox.TextXAlignment = Enum.TextXAlignment.Left
+ExecutionBox.TextYAlignment = Enum.TextYAlignment.Top
+
+UICorner_2.Parent = ExecutionBox
+
+YSH.Name = "YSH"
+YSH.Parent = Main
+YSH.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+YSH.BackgroundTransparency = 1.000
+YSH.Position = UDim2.new(0.0833333358, 0, 0.109704643, 0)
+YSH.Size = UDim2.new(0, 200, 0, 50)
+YSH.Font = Enum.Font.SourceSansBold
+YSH.LineHeight = 0.900
+YSH.Text = "Secure Your Script Here:"
+YSH.TextColor3 = Color3.fromRGB(255, 255, 255)
+YSH.TextSize = 14.000
+
+SSS_2.Name = "SSS"
+SSS_2.Parent = Main
+SSS_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+SSS_2.BackgroundTransparency = 1.000
+SSS_2.Position = UDim2.new(-0.25333333, 0, -0.0464135036, 0)
+SSS_2.Size = UDim2.new(0, 200, 0, 50)
+SSS_2.Font = Enum.Font.SourceSansBold
+SSS_2.Text = "SSS"
+SSS_2.TextColor3 = Color3.fromRGB(255, 255, 255)
+SSS_2.TextSize = 14.000
+
+-- Scripts:
+
+local function LXKOO_fake_script() -- ExecutionBox.LocalScript 
+	local script = Instance.new('LocalScript', ExecutionBox)
+
+	script.Parent:CaptureFocus()
+	
+	
+	script.Parent.FocusLost:Connect(function()
+		local first = syn.crypt.base64.encode(script.Parent.Text)
+		local second = ENCRYPTFUNCTION(first,99492374523)
+		
+		setclipboard(second)
+		script.Parent.Parent.Parent:Destroy()
+	end)
+end
+coroutine.wrap(LXKOO_fake_script)()
